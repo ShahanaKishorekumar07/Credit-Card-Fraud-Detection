@@ -1,0 +1,57 @@
+<<!DOCTYPE html>
+<html>
+<head>
+    <title>Transaction</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #36d1dc, #5b86e5);
+            font-family: Arial;
+            text-align: center;
+            color: white;
+        }
+
+        .box {
+            background: white;
+            color: black;
+            width: 350px;
+            margin: 80px auto;
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 8px;
+            border-radius: 8px;
+        }
+
+        button {
+            background: #5b86e5;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>💳 Transaction Input</h2>
+
+<form action="/predict" method="post">
+<input name="time" placeholder="Time">
+<input name="amount" placeholder="Amount">
+<input name="v1" placeholder="V1">
+<input name="location" placeholder="Location">
+<button>Analyze</button>
+</form>
+
+</div>
+
+</body>
+</html>

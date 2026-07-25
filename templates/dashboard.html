@@ -1,0 +1,109 @@
+<!<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(135deg, #1f4037, #99f2c8);
+            color: white;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            color: black;
+            width: 400px;
+            margin: 50px auto;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .low { color: green; }
+        .medium { color: orange; }
+        .high { color: red; }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .badge-low { background: green; }
+        .badge-medium { background: orange; }
+        .badge-high { background: red; }
+
+        ul { text-align: left; }
+
+        button {
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #1f4037;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>💳 AI Fraud Dashboard</h2>
+
+<h3 class="{{ result|lower }}">
+    Risk Level:
+    <span class="badge badge-{{ result|lower }}">{{ result }}</span>
+</h3>
+
+<p>🔴 Risk Score: <b>{{ score }}%</b></p>
+<p>💙 Trust Score: <b>{{ trust }}%</b></p>
+
+<p><b>{{ action }}</b></p>
+
+<h4>🔍 Reasons:</h4>
+<ul>
+{% for r in reasons %}
+<li>{{ r }}</li>
+{% endfor %}
+</ul>
+
+<canvas id="chart"></canvas>
+
+<br>
+
+<form action="/logout">
+<button>Logout</button>
+</form>
+
+<audio id="sound">
+<source src="/static/alert.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+
+<script>
+let score = {{ score }};
+
+new Chart(document.getElementById("chart"), {
+    type: "doughnut",
+    data: {
+        labels: ["Risk", "Trust"],
+        datasets: [{
+            data: [score, 100-score]
+        }]
+    }
+});
+
+if(score > 70){
+    let audio = document.getElementById("sound");
+    document.body.addEventListener("click", () => audio.play(), {once:true});
+}
+</script>
+
+</body>
+</html>
